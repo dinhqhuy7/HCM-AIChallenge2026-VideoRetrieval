@@ -1,0 +1,1 @@
+# HCM-AIChallenge2026-VideoRetrieval
