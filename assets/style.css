@@ -36,7 +36,7 @@ header {
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 12px;
-  padding: 12px 280px 12px 16px; /* the right side keeps room for the link buttons */
+  padding: 12px 172px 12px 16px; /* the right side keeps room for the GitHub button */
   border-bottom: 1px solid var(--line);
 }
 
@@ -66,8 +66,8 @@ header .links a {
   transition: color 0.15s, background 0.15s, border-color 0.15s;
 }
 header .links a:hover, header .links a:focus-visible { color: var(--panel); background: var(--text); border-color: var(--text); }
-@media (max-width: 600px) { /* phones: each button shrinks to its icon */
-  header { padding-right: 112px; }
+@media (max-width: 600px) { /* phones: the button shrinks to its icon */
+  header { padding-right: 68px; }
   header .links a { width: 36px; padding: 0; justify-content: center; }
   header .links span { display: none; }
 }

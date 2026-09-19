@@ -46,7 +46,7 @@ test('keywords match with or without accents, frames matching more words first',
 test('among frames matching as many words, videos take turns', async () => {
   const files = {
     'data/keywords/index.json': ['lu'],
-    'data/keywords/lu.json': { lu: [['A', 1, 0, 0], ['A', 2, 0, 1], ['A', 3, 0, 2], ['B', 1, 0, 0]] },
+    'data/keywords/w-lu.json': { lu: [['A', 1, 0, 0], ['A', 2, 0, 1], ['A', 3, 0, 2], ['B', 1, 0, 0]] },
   };
   const index = new KeywordIndex(new StaticDataset('', async (path) => files[path]));
   assert.deepEqual((await index.search('lu')).map((f) => f.key), ['A/1', 'B/1', 'A/2', 'A/3']);
@@ -59,7 +59,7 @@ test('a word whose file does not exist is never downloaded', async () => {
     return readJson(path);
   }));
   await index.search('xeo bao');
-  assert.deepEqual(fetched.sort(), ['data/keywords/bao.json', 'data/keywords/index.json']);
+  assert.deepEqual(fetched.sort(), ['data/keywords/index.json', 'data/keywords/w-bao.json']);
 });
 
 test('sample queries split by task, then by round', async () => {

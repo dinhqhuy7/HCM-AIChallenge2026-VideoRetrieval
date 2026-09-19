@@ -9,7 +9,7 @@ data/videos.json               one entry per video
 data/results/<query id>.json   recorded ranking of one query
 data/videos/<video id>.json    frames and words of one video
 data/keywords/index.json       which keyword files exist
-data/keywords/<xyz>.json       words starting with the letters xyz
+data/keywords/w-<xyz>.json     words starting with the letters xyz
 img/<video id>/<frame>.webp    a single frame
 sprites/<video id>/<row>.webp  pictures of 10 scenes side by side
 ```
@@ -54,9 +54,10 @@ and one tuple per stage in each chain.
 `onScreen` has one entry per scene: `time` and `until` are its first and last
 frame, both included.
 
-`keywords/index.json` — the keyword files present, e.g. `["bao", "lu"]`: a word
-lives in the file named by its first three letters (a two-letter word by both).
-`keywords/<xyz>.json` — `{ "<word>": [tuple, …] }`. Words are folded exactly
+`keywords/index.json` — the letters that have a file, e.g. `["bao", "lu"]`: a word
+lives in `w-` plus its first three letters (a two-letter word, both), `.json`. The
+`w-` keeps names such as `con`, which Windows reserves, usable everywhere.
+`keywords/w-<xyz>.json` — `{ "<word>": [tuple, …] }`. Words are folded exactly
 as `src/core/vietnamese-text.js` folds typed text: lower case, accents and
 the stroke of the Vietnamese d removed, split on anything but `a-z0-9`. Words
 shorter than two letters are not indexed. Test your folding against

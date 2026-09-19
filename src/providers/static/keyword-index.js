@@ -1,9 +1,10 @@
 import { VietnameseText } from '../../core/vietnamese-text.js';
 
 /**
- * Finds frames by words read on screen or heard. Words live in files named by
- * their first PREFIX letters; `index.json` lists the files that exist, so a word
- * with no file is simply absent rather than a failed download.
+ * Finds frames by words read on screen or heard. Words live in `w-<letters>.json`,
+ * named by their first PREFIX letters (the `w-` keeps names like `con`, which
+ * Windows reserves, legal); `index.json` lists the letters that have a file, so
+ * a word with no file is simply absent rather than a failed download.
  * Frames matching more of the words come first; among equals, videos take
  * turns, so one talkative video cannot fill the page.
  */
@@ -42,6 +43,6 @@ export class KeywordIndex {
 
   async #postings(word, shards) {
     const shard = word.slice(0, KeywordIndex.PREFIX);
-    return shards.has(shard) ? (await this.#data.json(`data/keywords/${shard}.json`))[word] ?? [] : [];
+    return shards.has(shard) ? (await this.#data.json(`data/keywords/w-${shard}.json`))[word] ?? [] : [];
   }
 }
