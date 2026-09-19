@@ -1,0 +1,5 @@
+{
+  "L01_V001": {"title": "Morning news", "youtube": "aaa", "embed": true},
+  "L01_V002": {"title": "Cooking show", "youtube": "bbb", "embed": false},
+  "L01_V003": {"title": "Orchard tour", "youtube": "ccc", "embed": true}
+}

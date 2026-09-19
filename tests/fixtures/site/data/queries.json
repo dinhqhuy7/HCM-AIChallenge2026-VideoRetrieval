@@ -1,0 +1,5 @@
+[
+  {"id": "r1-p1-1", "round": 1, "task": "kis", "text": "Đường phố ngập nước sau cơn bão."},
+  {"id": "r1-p1-3", "round": 1, "task": "qa", "text": "Con số cuối cùng hiện trên cân là bao nhiêu?"},
+  {"id": "r2-p2-8", "round": 2, "task": "trake", "text": "Vườn trái cây.", "stages": ["Cảnh có sầu riêng.", "Cảnh có măng cụt."]}
+]
