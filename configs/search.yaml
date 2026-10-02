@@ -1,0 +1,47 @@
+# Online search (docs/online.md, docs/trake.md, docs/submission.md).
+#
+# Values are the libraries' own defaults, a model card's, a paper's, or the organisers' rules, with
+# the source beside them. A step with no published value is off or null: the repository does not
+# choose it for you. configs/index.yaml says where the index lives and which encoders it holds.
+
+device: cuda                  # where the text encoder and the translator run: cuda, cuda:1, cpu ...
+
+visual:
+  encoder: siglip2            # which collection the visual box searches: siglip2 or pe_core
+
+translation:                  # Vietnamese -> English, for the visual box only
+  enabled: false              # SigLIP 2's card calls it "Multilingual": Vietnamese goes in as typed (a
+                              # translation changed its results only a little in a small test). PE-Core's card
+                              # names no language and the PE-Core-L model read Vietnamese poorly: turn
+                              # this on for pe_core (docs/models.md). It costs about 0.2-0.5 s a query,
+                              # and the English is cut at max_length tokens.
+  model: VietAI/envit5-translation   # Hugging Face id, or a local folder
+  max_length: 512             # as in the model card's example
+
+depth: 100                    # shots each lane returns (for TRAKE: frames per event in stage 1).
+                              # A choice of this repository: as deep as the rows a query may send.
+
+fusion:
+  rrf_k: null                 # needed only when two or more boxes are filled. Cormack et al., SIGIR 2009,
+                              # use 60 ("near-optimal, but ... the choice was not critical").
+
+rows: 100                     # rows written per query: the organisers' maximum
+spread:                       # KIS and Q&A: spread the tail of the list over the videos
+  enabled: false              # No published values for the two numbers below.
+  keep_top: null              # rows kept exactly as ranked
+  per_video: null             # then this many rows from each video, in turn
+
+trake:
+  order: strict               # strict: each event after the one before it, as the task gives them;
+                              # loose: the same frame may serve two events
+  min_gap_ms: null            # bounds between consecutive events; null leaves them open
+  max_gap_ms: null
+  spread: false               # true: the best chain of every video first, then every second best ...
+                              # No published default. A wrong video scores zero however well its
+                              # frames line up (organisers' rules): the case for turning it on.
+
+submission:
+  frame_id_base: 0            # added to the decoder's frame index (first frame = 0). Frame n is at
+                              # n * 1000 / fps ms. Set 1 if your round numbers frames from 1.
+  dres:
+    base_url: null            # the DRES address the organisers give you

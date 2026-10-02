@@ -1,0 +1,27 @@
+# Main environment: preprocessing, embeddings, speech, translation, Milvus, search.
+# Python 3.11, and the ffmpeg and ffprobe command-line tools on the PATH (TransNetV2 decodes
+# through ffmpeg). Install PyTorch for your CUDA first (docs/setup.md), e.g.
+#   pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cu124
+# so that the packages below do not pull another torch. These are the versions this repository
+# was run with.
+
+av==17.1.0
+numpy==2.2.6
+opencv-python-headless==5.0.0.93
+pillow==12.3.0
+pyyaml==6.0.3
+
+transnetv2-pytorch==1.0.5
+ffmpeg-python==0.2.0            # how TransNetV2 calls ffmpeg
+
+transformers==4.57.6            # SigLIP 2, envit5
+sentencepiece==0.2.2            # envit5 tokenizer
+open_clip_torch==2.32.0         # PE-Core
+timm==1.0.29
+ftfy==6.2.3
+
+faster-whisper==1.1.1           # brings ctranslate2 and onnxruntime (Silero VAD)
+
+pymilvus==2.5.4
+milvus-lite==2.4.12             # Milvus Lite, the default index; pymilvus asks only for >=2.4.0
+setuptools>69,<82              # pymilvus 2.5.4 asks for >69 and imports pkg_resources, removed in 82.0.0

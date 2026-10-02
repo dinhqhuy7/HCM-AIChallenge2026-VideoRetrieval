@@ -1,0 +1,39 @@
+# data/ ships the video list only; everything the scripts write there stays out of git
+/data/*
+!/data/README.md
+!/data/videos.csv
+# outputs of search.py and the Milvus Lite file wherever milvus.uri puts it
+# (anchored: src/submission/ is code and must stay)
+/runs/
+/submission/
+*.db
+.*.db.lock
+
+# models and videos are never part of the repository, wherever they are downloaded to
+/models/
+/checkpoints/
+.cache/
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
+*.ckpt
+*.pdiparams
+*.pdmodel
+mobileclip*.ts
+*.mp4
+*.mkv
+*.avi
+*.webm
+
+# secrets: DRES credentials are typed in, never stored, but a .env is easy to create by habit
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+.venv*/
+venv/
+*.tmp

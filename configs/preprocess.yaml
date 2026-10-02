@@ -1,0 +1,36 @@
+# Offline step 1: videos -> shots -> keyframes (docs/offline/01-shots-and-keyframes.md).
+#
+# Values are the libraries' own defaults. A step with no published default is switched off:
+# look at your own videos first (every keyframe's measurements are in the keyframe map),
+# then choose.
+
+shots:
+  threshold: 0.5          # TransNetV2: a frame above this transition probability ends a shot.
+                          # Default of predictions_to_scenes (soCzech/TransNetV2) and of
+                          # detect_scenes (transnetv2-pytorch).
+  device: auto            # transnetv2-pytorch default: CUDA when present, else CPU
+
+keyframes:
+  policy: middle          # middle: the middle frame of every shot (the only policy with no
+                          #         parameter to choose, hence the default here)
+                          # dense:  a keyframe every `frame_gap` frames inside every shot
+  dense:
+    frame_gap: null       # No published default. TRAKE answer ranges are "usually under 10
+                          # frames" (organisers); a range of W frames always holds a keyframe
+                          # when 2 * (frame_gap + search_radius) <= W.
+    search_radius: null   # take the sharpest frame within this many frames of each slot;
+                          # 0 keeps the slot itself. Needs 2 * search_radius < frame_gap.
+  jpeg_quality: 75        # Pillow's default JPEG quality
+
+quality:                  # sharpness, brightness and entropy are measured for every keyframe
+  enabled: false          # true: frames past a threshold stay out of the index (never deleted);
+                          # after changing this section: preprocess.py --reselect
+  min_sharpness: null     # variance of the Laplacian; below it -> "blur"
+  min_brightness: null    # mean grey level, 0-255; below it -> "dark"
+  max_brightness: null    # above it -> "bright"
+  min_entropy: null       # grey-level entropy in bits; below it -> "flat" (one colour)
+
+grouping:                 # near-duplicate keyframes of one shot share one vector
+  enabled: false          # after changing this section: preprocess.py --reselect
+  max_distance: null      # 64-bit difference hash: Hamming distance at or below which two
+                          # consecutive keyframes count as one picture

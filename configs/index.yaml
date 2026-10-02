@@ -1,0 +1,71 @@
+# Offline steps 2-6: keyframes -> vectors in Milvus; OCR, speech and objects -> keyword indexes
+# (docs/offline/02-visual-index.md, 03-ocr.md, 04-asr.md).
+#
+# Values are the libraries' own defaults or come from the model cards. A key left null is not
+# passed on, so the library decides; the comment says what it decides in the version tested.
+# A step with no published default is switched off.
+
+visual:
+  encoders: [siglip2]         # one Milvus collection each; [siglip2, pe_core] builds both
+  device: cuda                # cuda, cuda:1, cpu ...
+  batch_size: 16              # pictures per forward pass, a choice of this repository: memory and
+                              # speed. In fp16 the vectors also move in their last digits (cosine
+                              # 0.999996 between 1 and 16 in a test), enough to swap near ties.
+  siglip2:
+    model: google/siglip2-so400m-patch14-384   # Hugging Face id, or a local folder
+  pe_core:
+    model: hf-hub:timm/PE-Core-bigG-14-448     # OpenCLIP name, as on the model card
+
+milvus:
+  uri: index/milvus.db        # a file path, relative to the data folder: Milvus Lite, for one
+                              # program at a time; an address such as http://localhost:19530:
+                              # Milvus standalone (docs/setup.md)
+  index_type: AUTOINDEX       # Milvus chooses the index and its parameters. Milvus Lite accepts
+                              # only FLAT, IVF_FLAT and AUTOINDEX; HNSW needs standalone.
+  metric_type: COSINE         # pymilvus's default metric (MilvusClient.create_collection)
+
+ocr:                          # PaddleOCR() arguments, general OCR pipeline of PaddleOCR 3.x; a null
+                              # one takes the value in PaddleX's OCR.yaml (3.7.2 given here)
+  text_detection_model_name: PP-OCRv6_medium_det    # the pipeline's defaults, also what PaddleOCR
+  text_recognition_model_name: PP-OCRv6_medium_rec  # picks for lang="vi" (docs/models.md)
+  use_doc_orientation_classify: false  # steps for scanned pages, off in the example of the
+  use_doc_unwarping: false             # PP-OCRv6_medium_rec model card
+  use_textline_orientation: null       # on: turns upside-down lines; its model (PP-LCNet_x1_0_
+                                       # textline_ori) is downloaded on first use
+  text_det_limit_side_len: null   # 64 ...
+  text_det_limit_type: null       # ... "min": a picture's short side is brought up to 64
+  text_det_thresh: null           # 0.3: pixel score counted as text
+  text_det_box_thresh: null       # 0.6: mean score a box needs to be kept
+  text_det_unclip_ratio: null     # 1.5: how far a text box is widened
+  text_rec_score_thresh: null     # 0.0: every recognised line is kept
+  device: null                    # gpu:0 (or cuda:0), cpu; null: Paddle takes gpu:0 when it sees one
+
+asr:                          # faster-whisper; every key below but model, device, compute_type,
+                              # drop_phrases and shot_padding_ms goes to transcribe() as it is, so any
+                              # of its options can be added; a null one keeps the library default
+  model: large-v3             # downloads Systran/faster-whisper-large-v3; or a local folder
+  device: null                # "auto"; cuda, cuda:1 or cpu also work
+  compute_type: null          # "default": the type the model was converted with
+  language: vi                # the videos are Vietnamese; null detects it from the first 30 s
+  vad_filter: true            # README usage (library default: false). Skips silences longer than
+                              # 2 s with Silero VAD. With it off, on a contest video, Whisper wrote
+                              # one invented "subscribe to the channel" line over the opening, again
+                              # and again, in place of three minutes of real speech.
+  beam_size: null             # 5
+  condition_on_previous_text: null   # true; false stops one bad window from leaking into the
+                                     # next (docs/offline/04-asr.md)
+  drop_phrases: []            # segments containing one of these are dropped (docs/offline/04-asr.md)
+  shot_padding_ms: 0          # widen each segment by this much when joining speech to shots
+
+objects:                      # optional; Ultralytics is AGPL-3.0 and runs in its own environment
+  enabled: false
+  weights: yoloe-26l-seg.pt   # YOLOE, prompted with text (Ultralytics YOLOE docs)
+  classes: []                 # the prompts: names of the objects to find; needed when enabled
+  conf: null                  # 0.25 when predicting (Ultralytics 8.4)
+  iou: null                   # 0.7
+  imgsz: null                 # 640
+  device: null                # cuda:0, cpu ...; null lets Ultralytics choose
+
+keywords:                     # BM25 over OCR text, speech and object labels, one document per shot
+  k1: 1.2                     # Lucene / Elasticsearch default
+  b: 0.75                     # Lucene / Elasticsearch default

@@ -1,0 +1,12 @@
+# OCR environment, kept apart from the main one: Paddle and PyTorch each ship their own CUDA
+# libraries, and in one environment they clash. Python 3.11. Install PaddlePaddle for your CUDA first:
+#   CUDA 12.6: python -m pip install paddlepaddle-gpu==3.2.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
+#   CUDA 11.8: python -m pip install paddlepaddle-gpu==3.2.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu118/
+#   CPU:       python -m pip install paddlepaddle==3.2.0 -i https://www.paddlepaddle.org.cn/packages/stable/cpu/
+# paddlepaddle-gpu needs the NVIDIA driver (libcuda.so.1) even to run on the CPU: on a machine
+# without one, take the CPU build. These are the versions this repository was run with; the models
+# are downloaded the first time they are used.
+
+paddleocr==3.7.0
+paddlex[ocr-core]==3.7.2
+pyyaml==6.0.2

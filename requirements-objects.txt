@@ -1,0 +1,11 @@
+# Optional object environment. Ultralytics is AGPL-3.0: keeping it in its own environment keeps it
+# out of everything else. Install PyTorch first, as for the main environment. Python 3.11.
+#
+# YOLOE's text encoder imports `clip`. clip-anytorch is the OpenAI CLIP source as a wheel; without
+# it Ultralytics installs `git+https://github.com/ultralytics/CLIP.git` at the first set_classes().
+# The same call fetches the MobileCLIP text encoder (mobileclip2_b.ts, about 254 MB) and the weights
+# file unless they are already in the working directory: set YOLO_OFFLINE=True to forbid any download.
+
+ultralytics==8.4.120
+clip-anytorch==2.6.0
+pyyaml==6.0.3
