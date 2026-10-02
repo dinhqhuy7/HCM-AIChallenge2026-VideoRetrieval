@@ -248,26 +248,40 @@ tests/          unit tests for the logic that runs without a model
 
 This work stands on the following models, libraries and papers. Each keeps its own licence.
 
-- TransNetV2: T. Souček and J. Lokoč, *TransNet V2: An effective deep network architecture for
-  fast shot transition detection*, arXiv:2008.04838 (MIT); the PyTorch port
+- **TransNetV2:** T. Souček and J. Lokoč, [*TransNet V2: An effective deep network architecture for
+  fast shot transition detection*](https://arxiv.org/abs/2008.04838) (MIT), code at
+  [soCzech/TransNetV2](https://github.com/soCzech/TransNetV2); the PyTorch port
   [transnetv2-pytorch](https://github.com/allenday/transnetv2_pytorch) (MIT).
-- SigLIP 2: M. Tschannen et al., *SigLIP 2: Multilingual Vision-Language Encoders with Improved
-  Semantic Understanding, Localization, and Dense Features*, arXiv:2502.14786 (Apache-2.0).
-- Perception Encoder: D. Bolya et al., *Perception Encoder: The best visual embeddings are not at
-  the output of the network*, arXiv:2504.13181 (Apache-2.0), loaded through OpenCLIP (G. Ilharco et
-  al., doi:10.5281/zenodo.5143773, MIT).
-- envit5-translation by VietAI; MTet, arXiv:2210.05610 (OpenRAIL).
-- PaddleOCR 3.0 Technical Report, arXiv:2507.05595 (Apache-2.0).
-- Whisper: A. Radford et al., *Robust Speech Recognition via Large-Scale Weak Supervision*,
-  arXiv:2212.04356 (weights Apache-2.0); faster-whisper and CTranslate2 by SYSTRAN (MIT).
-- YOLOE: A. Wang et al., *YOLOE: Real-Time Seeing Anything*, arXiv:2503.07465; Ultralytics
-  (AGPL-3.0).
-- Milvus and pymilvus (Apache-2.0); PyAV (BSD-3-Clause); Hugging Face transformers (Apache-2.0).
-- DRES: L. Sauter et al., *Performance Evaluation in Multimedia Retrieval*, ACM TOMM 2024,
-  doi:10.1145/3678881 (MIT).
-- G. V. Cormack, C. L. A. Clarke, S. Büttcher, *Reciprocal Rank Fusion outperforms Condorcet and
-  individual Rank Learning Methods*, SIGIR 2009.
-- S. Robertson and H. Zaragoza, *The Probabilistic Relevance Framework: BM25 and Beyond*, 2009.
+- **SigLIP 2:** M. Tschannen et al., [*SigLIP 2: Multilingual Vision-Language Encoders with Improved
+  Semantic Understanding, Localization, and Dense Features*](https://arxiv.org/abs/2502.14786)
+  (Apache-2.0), [model card](https://huggingface.co/google/siglip2-so400m-patch14-384).
+- **Perception Encoder:** D. Bolya et al., [*Perception Encoder: The best visual embeddings are not at
+  the output of the network*](https://arxiv.org/abs/2504.13181) (Apache-2.0), loaded through
+  [OpenCLIP](https://github.com/mlfoundations/open_clip) (G. Ilharco et al.,
+  [doi:10.5281/zenodo.5143773](https://doi.org/10.5281/zenodo.5143773), MIT).
+- **envit5-translation:** [VietAI/envit5-translation](https://huggingface.co/VietAI/envit5-translation)
+  (OpenRAIL), trained on MTet and [PhoMT](https://github.com/VinAIResearch/PhoMT) according to its model
+  card; the MTet paper is [*MTet: Multi-domain Translation for English and
+  Vietnamese*](https://arxiv.org/abs/2210.05610).
+- **PaddleOCR:** [PaddleOCR 3.0 Technical Report](https://arxiv.org/abs/2507.05595), code at
+  [PaddlePaddle/PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR) (Apache-2.0).
+- **Whisper:** A. Radford et al., [*Robust Speech Recognition via Large-Scale Weak
+  Supervision*](https://arxiv.org/abs/2212.04356) (weights Apache-2.0); run with
+  [faster-whisper](https://github.com/SYSTRAN/faster-whisper) (MIT) on
+  [CTranslate2](https://github.com/OpenNMT/CTranslate2) (MIT), both by SYSTRAN.
+- **YOLOE:** A. Wang et al., [*YOLOE: Real-Time Seeing Anything*](https://arxiv.org/abs/2503.07465),
+  run with [Ultralytics](https://github.com/ultralytics/ultralytics) (AGPL-3.0).
+- **Infrastructure:** [Milvus](https://milvus.io) and [pymilvus](https://github.com/milvus-io/pymilvus)
+  (Apache-2.0); [PyAV](https://github.com/PyAV-Org/PyAV) (BSD-3-Clause); Hugging Face
+  [transformers](https://github.com/huggingface/transformers) (Apache-2.0).
+- **DRES:** L. Sauter et al., [*Performance Evaluation in Multimedia
+  Retrieval*](https://doi.org/10.1145/3678881), ACM TOMM 2024; the server is
+  [dres-dev/DRES](https://github.com/dres-dev/DRES) (MIT).
+- **Rank fusion:** G. V. Cormack, C. L. A. Clarke, S. Büttcher, [*Reciprocal Rank Fusion outperforms
+  Condorcet and individual Rank Learning Methods*](https://doi.org/10.1145/1571941.1572114), SIGIR
+  2009 ([PDF](https://plg.uwaterloo.ca/~gvcormac/cormacksigir09-rrf.pdf)).
+- **BM25:** S. Robertson and H. Zaragoza, [*The Probabilistic Relevance Framework: BM25 and
+  Beyond*](https://doi.org/10.1561/1500000019), Foundations and Trends in Information Retrieval, 2009.
 
 The videos belong to their broadcasters and are distributed by the organisers of the HCM AI
 Challenge; none are included here.
