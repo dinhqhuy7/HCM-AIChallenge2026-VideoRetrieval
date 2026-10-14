@@ -9,7 +9,8 @@
   <meta name="description" content="A search page for the news videos of the HCM AI Challenge 2026 qualifier: find a moment, collect answers, download them in the competition's CSV format.">
   <title>Video Retrieval Demo</title>
   <link rel="icon" href="assets/logo.svg">
-  <link rel="stylesheet" href="assets/style.css">
+  <!-- GitHub Pages lets browsers keep a file for 10 minutes: change the number when the stylesheet changes, so a new page never meets an old one -->
+  <link rel="stylesheet" href="assets/style.css?v=2">
 </head>
 <body>
   <a class="skip" href="#results">Skip to results</a>
@@ -17,7 +18,7 @@
   <header class="top">
     <img class="logo" src="assets/logo.svg" alt="" width="36" height="36">
     <h1>Video Retrieval Demo</h1>
-    <p class="tagline">HCM AI Challenge 2026 qualifier videos. Results are recorded in advance from the competition system, not computed live.</p>
+    <p class="tagline">HCM AI Challenge 2026 qualifier videos. Results are recorded in advance, not computed live.</p>
     <nav class="pages" id="pages" aria-label="Pages" hidden>
       <a href="#" aria-current="page">Search</a>
       <a href="#how-it-works">How it works</a>
