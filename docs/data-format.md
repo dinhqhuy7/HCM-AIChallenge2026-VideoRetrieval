@@ -39,8 +39,10 @@ order. `text` and `stages` keep the organisers' own Vietnamese wording.
 `embed` is false when the owner blocks playback on other sites.
 
 `results/<id>.json` — `{ "frames": [tuple, …] }` best first; for TRAKE
-`{ "stages": [[tuple, …], …], "chains": [[tuple, …], …] }`, one list per stage
-and one tuple per stage in each chain.
+`{ "stages": [[tuple, …], …], "chains": [[tuple, …], …] }`: one list per stage,
+best first and over all videos, and in each chain one tuple per stage, all in one
+video. The page draws a chain on its video's time line and shows each frame's rank
+in its stage's list, so the lists should hold the frames the chains were made from.
 
 `videos/<videoId>.json`:
 
@@ -51,8 +53,12 @@ and one tuple per stage in each chain.
 ```
 
 `frames` lists every frame of the video that has a picture, in time order.
-`onScreen` has one entry per scene: `time` and `until` are its first and last
-frame, both included.
+`onScreen` has one entry for each scene in which words were read on screen: `time`
+and `until` are its first and last frame, both included. A scene with no words
+has no entry, and scenes do not overlap. The page cuts the video along these
+entries (`src/core/anatomy.js`): each is a stretch of its own, and what lies
+between two of them is a stretch only when a frame or a spoken line falls there.
+`speech` lines are in time order, each from the second it starts.
 
 `keywords/index.json` — the letters that have a file, e.g. `["bao", "lu"]`: a word
 lives in `w-` plus its first three letters (a two-letter word, both), `.json`. The

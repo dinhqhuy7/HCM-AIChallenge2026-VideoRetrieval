@@ -46,6 +46,9 @@ classDiagram
   View <|-- ResultGrid
   View <|-- EventChainView
   View <|-- FrameViewer
+  View <|-- VideoAnatomy
+  View <|-- StartPanel
+  View <|-- HowItWorks
   View <|-- VideoPlayer
   View <|-- AnswerPanel
   App --> SearchProvider
@@ -56,6 +59,16 @@ classDiagram
 
 - `App` builds the provider named in `config.js`, creates the views and routes
   their events (`search`, `open-frame`, `add-answer`, …). No view knows another.
+  Views that share the results panel (the grid, the event chains, a video taken
+  apart) do not know each other either: `View.load` lets the newest request into
+  an element win, so a slow answer never draws over a newer one.
+- The page has two parts, the search and a guide on how it works (`HowItWorks`,
+  offered when `config.how` names its examples). The address says which is shown
+  (`#how-it-works` is the guide), the part left keeps its state, and what the
+  guide lets you try (`look-inside`, `try-words`, `open-query`, `open-frame`, …) goes
+  to the search as a new step of the history. Its examples are of two kinds and
+  say so: data read through the provider, and the main branch's own output
+  (`src/core/main-output.js`, copied from its guides).
 - `capabilities()` tells views which features exist, so no view checks which
   provider it has.
 - `core/` holds the plain data (`Frame`, `Video`, `Query`, `Answer`) and the

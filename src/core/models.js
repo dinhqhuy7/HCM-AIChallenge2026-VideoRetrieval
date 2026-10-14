@@ -1,3 +1,5 @@
+import { clock } from './clock.js';
+
 /** The competition's three tasks, by the names users see. */
 export const TASK_NAMES = { kis: 'KIS', qa: 'Q&A', trake: 'TRAKE' };
 
@@ -45,6 +47,16 @@ export class Answer {
     const [{ videoId, frameIdx }] = this.frames;
     if (this.task === 'trake') return [videoId, ...this.frames.map((f) => f.frameIdx)];
     return this.task === 'qa' ? [videoId, frameIdx, this.text] : [videoId, frameIdx];
+  }
+
+  /** The answer in words for a list: the video, and what picks out the moment (or the chain, or the reply). */
+  summary() {
+    const [first] = this.frames;
+    if (this.task === 'trake') {
+      return { video: first.videoId, detail: `${this.frames.length} frames: ${this.frames.map((f) => f.frameIdx).join(', ')}` };
+    }
+    const where = `frame ${first.frameIdx} \u00b7 ${clock(first.time)}`;
+    return { video: first.videoId, detail: this.task === 'qa' ? `${where} \u00b7 \u201c${this.text}\u201d` : where };
   }
 }
 

@@ -29,6 +29,11 @@ export class AnswerList extends EventTarget {
     return true;
   }
 
+  /** Empties one query's list. */
+  clear(queryId) {
+    this.#save(queryId, []);
+  }
+
   remove(queryId, index) {
     this.#save(queryId, this.of(queryId).filter((_, i) => i !== index));
   }
