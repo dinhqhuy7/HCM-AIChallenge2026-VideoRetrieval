@@ -23,7 +23,7 @@ shots; on one full video of 41 shots, 30 ms and 6 ms.
 | `--text` | visual | keyframe vectors in Milvus | what the picture shows |
 | `--ocr` | ocr | text read on screen, BM25 | words written on screen: a caption, a sign, a number |
 | `--asr` | asr | speech, BM25 | words someone says |
-| `--objects` | objects | detected labels, BM25 | object names from `objects.classes` |
+| `--objects` | objects | detected labels, BM25 | object names from `objects.classes` (a weak lane, see below) |
 
 A query is split by the person reading it; nothing is split automatically. The split is the most
 useful thing a person adds. Leave a box empty when the query says nothing for it: a lane that is
@@ -35,7 +35,9 @@ counters, a logo name) were typed once into each box, and the keyframe that show
 first in the OCR box for 18 of them and within the first five for 20; in the visual box, first for 4
 and within five for 11, among 50 shots. A large word on a plain card (`Herbalife`) was found by
 the visual box; numbers and clocks mostly were not. The `--objects` box needs the optional object
-lane ([offline/README.md](offline/README.md#objects-optional)) and was not part of these tests.
+lane, which is weak and has not been checked by hand
+([offline/README.md](offline/README.md#objects-optional)); it was not part of these tests, and the box is
+best left empty.
 
 `--query-file` reads a query file in the organisers' naming. The task comes from the file name
 (`query-p1-1-kis.txt` is KIS, a name ending in `-qa` or `-trake` the other two), the whole text goes

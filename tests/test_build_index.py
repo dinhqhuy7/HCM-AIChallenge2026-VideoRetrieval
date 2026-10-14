@@ -169,9 +169,12 @@ class BuildIndexTest(unittest.TestCase):
         self.assertEqual(sorted(path.name for path in (self.root / "ocr").iterdir()), ["V1.jsonl", "V2.jsonl"])
 
     def test_objects_follow_the_same_rules_and_stop_when_disabled(self):
-        with mock.patch("src.object_detection.detector.ObjectDetector", FakeReader):
+        warning = io.StringIO()
+        with mock.patch("src.object_detection.detector.ObjectDetector", FakeReader), \
+                contextlib.redirect_stderr(warning):
             code, output = self.run_step("objects")
         self.assertEqual(code, 0)
+        self.assertIn("the object lane is weak and has not been checked by hand", warning.getvalue())
         self.assertEqual(len(self.evidence("objects", "V2")), 3)
         self.config.write_text(CONFIG.replace("enabled: true", "enabled: false"), encoding="utf-8")
         with self.assertRaisesRegex(SystemExit, "objects.enabled is false"):

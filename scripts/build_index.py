@@ -158,6 +158,8 @@ class ObjectStep(KeyframeStep):
     def run(self) -> list[str]:
         if not self.settings.get("objects.enabled"):
             raise SystemExit(f"{self.settings.source}: objects.enabled is false")
+        print("warning: the object lane is weak and has not been checked by hand; leave it off unless you check its "
+              "labels on your own videos (docs/offline/README.md#objects-optional)", file=sys.stderr, flush=True)
         todo = self.todo()
         if not todo:
             return []

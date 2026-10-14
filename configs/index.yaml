@@ -57,7 +57,9 @@ asr:                          # faster-whisper; every key below but model, devic
   drop_phrases: []            # segments containing one of these are dropped (docs/offline/04-asr.md)
   shot_padding_ms: 0          # widen each segment by this much when joining speech to shots
 
-objects:                      # optional; Ultralytics is AGPL-3.0 and runs in its own environment
+objects:                      # optional, off, and not recommended: weak quality, never checked by hand
+                              # (docs/offline/README.md#objects-optional). Ultralytics is AGPL-3.0 and runs
+                              # in its own environment
   enabled: false
   weights: yoloe-26l-seg.pt   # YOLOE, prompted with text (Ultralytics YOLOE docs)
   classes: []                 # the prompts: names of the objects to find; needed when enabled

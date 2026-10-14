@@ -70,7 +70,8 @@ changed nothing; on one portrait keyframe it turned a short "10" upside down and
 (score 0.84), where with the model off it read "10" (0.99). The configuration leaves it at the
 library default.
 
-**YOLOE.** Optional and off by default. The object names to look for are the text prompts
+**YOLOE.** Optional and off by default, and not recommended: in use its detections were of low quality and
+they have not been checked by hand, so treat its output as unverified. The object names to look for are the text prompts
 (`objects.classes`). At the library's default thresholds one object can get two boxes (the whole
 body and the upper body), and a box over nearly the whole frame can appear with a low score (an
 "airplane" at 0.29 on an airport shot), so per-keyframe counts run high; `objects.conf` is yours to

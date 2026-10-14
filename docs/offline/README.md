@@ -128,6 +128,13 @@ Shots tile the video: every frame belongs to exactly one.
 
 ## Objects (optional)
 
+> **Not recommended.** The object lane's detections were of low quality in use and have not been
+> checked by hand, so this repository cannot say how accurate they are. At the library's default
+> thresholds one object can get two boxes, and a label can appear on a frame that does not show it,
+> so counts run high. The lane is switched off by default; leave it off unless you first check its
+> labels against the frames of your own videos. The visual, OCR and speech lanes do not depend on
+> it.
+
 Off by default. The object lane needs Ultralytics (AGPL-3.0), in its own environment
 ([setup.md](../setup.md#objects-optional)).
 

@@ -59,6 +59,9 @@ a driver of at least 550.54.14 for CUDA 12.6, or at least 450.80.02 for CUDA 11.
 
 ### Objects (optional)
 
+This lane is not recommended: the object lane's detections were of low quality in use and have not been checked by hand ([why](offline/README.md#objects-optional)).
+Install it only if you mean to check its labels on your own videos.
+
 ```bash
 python3.11 -m venv .venv-objects && . .venv-objects/bin/activate
 pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cu124

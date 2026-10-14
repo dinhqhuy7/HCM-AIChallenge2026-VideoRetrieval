@@ -84,7 +84,8 @@ flowchart LR
    standalone for a large collection.
 3. **Text evidence** ([OCR](docs/offline/03-ocr.md), [speech](docs/offline/04-asr.md)). PaddleOCR
    reads the text on each keyframe; faster-whisper transcribes the speech. Both become one keyword
-   document per shot, indexed with BM25. YOLOE object labels can be added the same way.
+   document per shot, indexed with BM25. YOLOE object labels can be added the same way, but that
+   lane is **weak and unchecked**: leave it off ([why](docs/offline/README.md#objects-optional)).
 
 **Online** ([docs/online.md](docs/online.md), [docs/trake.md](docs/trake.md))
 
@@ -164,7 +165,11 @@ Not done, and said so:
 - **A clean install was tested for `requirements.txt` and `requirements-objects.txt`, not for
   `requirements-ocr.txt`** (installed from local wheels) **and not for the PyTorch line**
   ([setup.md](docs/setup.md#what-was-tested)).
-- **The object lane** was run end to end earlier on two videos; it was not part of the last checks.
+- **The object lane is weak, and nobody has checked it by hand.** In use, its detections were not
+  accurate enough to trust, and they were never compared with the frames, so there is no measured
+  accuracy to quote. It ships switched off. Leave it off unless you first check its labels on your
+  own videos; the other lanes do not depend on it.
+  → [offline/README.md](docs/offline/README.md#objects-optional)
 - **TRAKE rows share their tails.** One chain is returned per starting keyframe, so inside one video
   the 100 rows differ mostly in the first frame (1 distinct tail in 100 rows on the test index, 11
   with `spread: true`). → [trake.md](docs/trake.md#what-the-100-rows-are-and-are-not)
@@ -182,7 +187,7 @@ Not done, and said so:
 | Text on screen | [PaddleOCR 3](https://github.com/PaddlePaddle/PaddleOCR), PP-OCRv6 medium | Apache-2.0 |
 | Speech | [faster-whisper](https://github.com/SYSTRAN/faster-whisper), Whisper large-v3 | MIT |
 | Query translation | [VietAI/envit5-translation](https://huggingface.co/VietAI/envit5-translation) | OpenRAIL |
-| Objects (optional) | [Ultralytics YOLOE](https://docs.ultralytics.com/models/yoloe/) | AGPL-3.0 |
+| Objects (optional, not recommended: weak and unchecked) | [Ultralytics YOLOE](https://docs.ultralytics.com/models/yoloe/) | AGPL-3.0 |
 | Keyword search, fusion | BM25 and Reciprocal Rank Fusion, in this repository | — |
 | Submission | [DRES](https://github.com/dres-dev/DRES) client API v2 | MIT |
 

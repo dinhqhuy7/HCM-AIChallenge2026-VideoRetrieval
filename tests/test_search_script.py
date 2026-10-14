@@ -85,6 +85,12 @@ class SearchScriptTest(unittest.TestCase):
         self.assertRegex(printed, r"1  L21_V001, 101 +4\.0s\n +2  L21_V002, 21 +0\.8s")
         self.assertIn(f"wrote 2 rows to {out}", printed)
 
+    def test_the_objects_box_says_that_its_lane_is_weak(self):
+        _, _, err = self.run_main("kis", "--objects", "person")
+        self.assertIn("the object lane is weak and has not been checked by hand", err)
+        _, _, err = self.run_main("kis", "--text", "x")
+        self.assertNotIn("object lane", err)
+
     def test_qa_puts_the_answer_on_every_row_and_needs_it_to_write(self):
         out = self.folder / "qa.csv"
         self.run_main("qa", "--text", "mấy người?", "--answer", "năm", "--out", str(out))

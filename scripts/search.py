@@ -185,7 +185,8 @@ def main(argv: list[str] | None = None, system_factory: Callable[[argparse.Names
     parser.add_argument("--text", help="what the pictures show (visual lane)")
     parser.add_argument("--ocr", help="words written on screen")
     parser.add_argument("--asr", help="words that are said")
-    parser.add_argument("--objects", help="object names, e.g. 'person car'")
+    parser.add_argument("--objects", help="object names, e.g. 'person car' (a weak lane, never checked by hand: "
+                                          "docs/online.md)")
     parser.add_argument("--event", action="append", default=[], help="TRAKE: one event, in order; repeatable")
     parser.add_argument("--query-file", type=Path, help="an organisers' query file, e.g. query-p1-1-kis.txt")
     parser.add_argument("--answer", help="Q&A: the answer, written on every row")
@@ -210,6 +211,8 @@ def main(argv: list[str] | None = None, system_factory: Callable[[argparse.Names
         parser.error("give the task (kis, qa, trake) or a query file whose name ends in -kis/-qa/-trake")
     typed = {"visual": text, "ocr": args.ocr, "asr": args.asr, "objects": args.objects}
     boxes = {lane: value.strip() for lane, value in typed.items() if value and value.strip()}
+    if "objects" in boxes:
+        print("note: the object lane is weak and has not been checked by hand (docs/online.md)", file=sys.stderr)
     if task == "trake":
         if any(getattr(args, lane) for lane in KEYWORD_BOXES) or args.text:
             parser.error("TRAKE searches its events with the visual lane only: give them with --event, "
